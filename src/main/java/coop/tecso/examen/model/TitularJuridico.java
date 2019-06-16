@@ -1,5 +1,9 @@
 package coop.tecso.examen.model;
 
+
+import javax.persistence.Entity;
+
+@Entity
 public class TitularJuridico extends Titular {
 
     private String razonSocial;

@@ -3,23 +3,18 @@ package coop.tecso.examen.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-import javax.persistence.Version;
+import javax.persistence.*;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
  * Abstract base persistent object that provides object identification and basic
  * auditory fields.
  */
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractPersistentObject implements Serializable {
 
 	private static final long serialVersionUID = -975560023284258938L;
