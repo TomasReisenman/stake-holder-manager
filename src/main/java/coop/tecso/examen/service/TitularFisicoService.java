@@ -1,5 +1,6 @@
 package coop.tecso.examen.service;
 
+import coop.tecso.examen.exceptions.TitularNotFoundException;
 import coop.tecso.examen.model.TitularFisico;
 import coop.tecso.examen.repository.TitularFisicoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,14 @@ import java.util.Map;
 public class TitularFisicoService {
 
     private TitularFisicoRepo titularFisicoRepo;
+    private ValidationService validationService;
 
     @Autowired
-    public TitularFisicoService(TitularFisicoRepo titularFisicoRepo) {
+    public TitularFisicoService(TitularFisicoRepo titularFisicoRepo, ValidationService validationService) {
         this.titularFisicoRepo = titularFisicoRepo;
+        this.validationService = validationService;
     }
+
 
     public List<TitularFisico> findAll(){
         return titularFisicoRepo.findAll();
@@ -25,18 +29,19 @@ public class TitularFisicoService {
     public TitularFisico findById(final Long id){
         return titularFisicoRepo
                 .findById(id)
-                .orElseThrow(() -> new RuntimeException());
+                .orElseThrow(() -> new TitularNotFoundException("No hay un titular fisico con id:" + id));
     }
 
     public TitularFisico updateTitularJuridico(final Long id, final Map<String ,String > titularFisico){
 
         TitularFisico titularEncontrado = findById(id);
 
-        titularEncontrado.setCuit(titularFisico.getOrDefault("cut",titularEncontrado.getCuit()));
+        titularEncontrado.setCuit(titularFisico.getOrDefault("cuit",titularEncontrado.getCuit()));
         titularEncontrado.setNombre(titularFisico.getOrDefault("nombre",titularEncontrado.getNombre()));
         titularEncontrado.setApellido(titularFisico.getOrDefault("apellido",titularEncontrado.getApellido()));
         titularEncontrado.setDni(titularFisico.getOrDefault("dni",titularEncontrado.getDni()));
 
+        validationService.validateCuit(titularEncontrado);
 
         return titularFisicoRepo.save(titularEncontrado);
     }
@@ -46,6 +51,9 @@ public class TitularFisicoService {
     }
 
     public TitularFisico saveTitularJuridico(final TitularFisico titularFisico){
+
+        validationService.validateCuit(titularFisico);
+
         return titularFisicoRepo.save(titularFisico);
     }
 
