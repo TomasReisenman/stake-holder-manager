@@ -11,6 +11,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.Arrays;
 import java.util.Collections;
 
+import coop.tecso.examen.model.Titular;
+import coop.tecso.examen.model.TitularFisico;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,21 +22,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import coop.tecso.examen.model.Country;
-import coop.tecso.examen.repository.CountryRepository;
+import coop.tecso.examen.repository.TitularFisicoRepo;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(CountryController.class)
-public class CountryControllerTest {
+@WebMvcTest(TitularFisicoController.class)
+public class TitularControllerTest {
 
 	@Autowired
     private MockMvc mvc;
 	
 	@Autowired
-	private CountryController controller;
+	private TitularFisicoController controller;
 	    
     @MockBean
-    private CountryRepository myRepository;
+    private TitularFisicoRepo myRepository;
     
     
     @Test
@@ -58,11 +59,12 @@ public class CountryControllerTest {
     	String isoCode = "XXX";
     	String name = "ZZZZZZ";
     	
-    	Country element = new Country();
+    	TitularFisico element = new TitularFisico();
     	element.setId(id);
-    	element.setIsoCode(isoCode);
-    	element.setName(name);
-    	
+    	element.setCuit(isoCode);
+    	element.setNombre(name);
+    	element.setApellido("Perez");
+
     	when(myRepository.findAll()).thenReturn(Arrays.asList(element));
     	
     	String root = controller.getClass().getAnnotation(RequestMapping.class).value()[0];

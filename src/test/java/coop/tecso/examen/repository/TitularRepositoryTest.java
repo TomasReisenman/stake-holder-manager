@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
+import coop.tecso.examen.model.Titular;
+import coop.tecso.examen.model.TitularFisico;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,28 +13,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import coop.tecso.examen.model.Country;
-
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class CountryRepositoryTest {
+public class TitularRepositoryTest {
 
 
     @Autowired
-    private CountryRepository countryRepository;
+    private TitularFisicoRepo titularFisicoRepo;
     
     @Before
     public void setUp() {
-    	Country country = new Country();
-    	country.setIsoCode("ISO_CODE_TEST");
-    	country.setName("NAME_TEST");
-    	
-    	countryRepository.save(country);
+    	TitularFisico titular = new TitularFisico();
+    	titular.setNombre("ISO_CODE_TEST");
+    	titular.setApellido("NAME_TEST");
+    	titular.setDni("35666");
+    	titular.setCuit("5559595");
+
+    	titularFisicoRepo.save(titular);
     }
         
     @Test
     public void findAllMustReturnAllCountries() {
-    	List<Country> result = countryRepository.findAll();
+    	List<TitularFisico> result = titularFisicoRepo.findAll();
     	assertEquals(1, result.size());
     }
     
