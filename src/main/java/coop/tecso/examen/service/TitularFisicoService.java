@@ -41,7 +41,7 @@ public class TitularFisicoService {
         titularEncontrado.setApellido(titularFisico.getOrDefault("apellido",titularEncontrado.getApellido()));
         titularEncontrado.setDni(titularFisico.getOrDefault("dni",titularEncontrado.getDni()));
 
-        validationService.validateCuit(titularEncontrado);
+        validationService.validateConstraints(titularEncontrado);
 
         return titularFisicoRepo.save(titularEncontrado);
     }
@@ -52,7 +52,7 @@ public class TitularFisicoService {
 
     public TitularFisico saveTitularJuridico(final TitularFisico titularFisico){
 
-        validationService.validateCuit(titularFisico);
+        validationService.validateConstraints(titularFisico);
 
         return titularFisicoRepo.save(titularFisico);
     }

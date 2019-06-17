@@ -2,12 +2,14 @@ package coop.tecso.examen.model;
 
 
 import javax.persistence.Entity;
+import javax.validation.constraints.Size;
 
 @Entity
 public class TitularJuridico extends Titular {
 
+    @Size(max = 100, message = "Razon social no puede tener mas de 100 caracteres")
     private String razonSocial;
-    //(maximo 100 caracteres)
+
     private String foundationYear;
 
     public String getRazonSocial() {

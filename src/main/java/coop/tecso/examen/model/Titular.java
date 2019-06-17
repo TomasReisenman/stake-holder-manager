@@ -1,11 +1,12 @@
 package coop.tecso.examen.model;
 
-import javax.persistence.Entity;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Titular extends AbstractPersistentObject {
 
+	@Column(unique = true)
 	private String cuit;
 
 	public String getCuit() {

@@ -1,15 +1,13 @@
 package coop.tecso.examen.service;
 
-import coop.tecso.examen.exceptions.InvalidCuitException;
 import coop.tecso.examen.model.Titular;
-import coop.tecso.examen.model.TitularFisico;
-import coop.tecso.examen.model.TitularJuridico;
 import coop.tecso.examen.repository.TitularFisicoRepo;
 import coop.tecso.examen.repository.TitularJuridicoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import javax.validation.*;
+import java.util.Set;
 
 @Service
 public class ValidationService {
@@ -23,20 +21,14 @@ public class ValidationService {
         this.titularJuridicoRepo = titularJuridicoRepo;
     }
 
-    public void validateCuit(final Titular titular){
+    public void validateConstraints(final Titular titular){
 
-        String cuitObteined = titular.getCuit();
-        Optional<TitularFisico> titularFisico = titularFisicoRepo.findByCuit(cuitObteined);
-        Optional<TitularJuridico> titularJuridico = titularJuridicoRepo.findByCuit(cuitObteined);
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
 
-        if(titularFisico.isPresent() && !(titular instanceof TitularFisico && titularFisico.get().getId().equals(titular.getId()))){
+        Set<ConstraintViolation<Titular>> violations = validator.validate(titular);
 
-            throw new InvalidCuitException("El cuit: " + cuitObteined + " ya se encuentra en la base de datos");
-        }
+        if (!violations.isEmpty()) throw new ConstraintViolationException(violations);
 
-        if(titularJuridico.isPresent() && !(titular instanceof TitularJuridico && titularJuridico.get().getId().equals(titular.getId()))) {
-
-            throw new InvalidCuitException("El cuit: " + cuitObteined + " ya se encuentra en la base de datos");
-        }
     }
 }

@@ -1,11 +1,15 @@
 package coop.tecso.examen.model;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.Size;
 
 @Entity
 public class TitularFisico extends Titular {
 
+    @Size(max = 80, message = "Nombre no puede tener mas de 80 caracteres")
     private String nombre;
+
+    @Size(max = 250, message = "Apellido no puede tener mas de 250 caracteres")
     private String apellido;
     private String dni;
 

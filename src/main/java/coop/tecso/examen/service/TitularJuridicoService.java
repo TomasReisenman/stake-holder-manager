@@ -39,7 +39,7 @@ public class TitularJuridicoService {
         titularEncontrado.setRazonSocial(titularJuridico.getOrDefault("razonSocial",titularEncontrado.getRazonSocial()));
         titularEncontrado.setFoundationYear(titularJuridico.getOrDefault("foundationYear",titularEncontrado.getFoundationYear()));
 
-        validationService.validateCuit(titularEncontrado);
+        validationService.validateConstraints(titularEncontrado);
 
         return titularJuridicoRepo.save(titularEncontrado);
     }
@@ -50,7 +50,7 @@ public class TitularJuridicoService {
 
     public TitularJuridico saveTitularJuridico(final TitularJuridico titularJuridico){
 
-        validationService.validateCuit(titularJuridico);
+        validationService.validateConstraints(titularJuridico);
 
         return titularJuridicoRepo.save(titularJuridico);
     }
