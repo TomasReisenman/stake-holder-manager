@@ -37,7 +37,7 @@ public class TitularJuridicoController {
         return ResponseEntity.ok(new TitularJuridicoDto(titularJuridicoService.findById(id)));
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity updateById(@PathVariable Long id,@RequestBody final Map<String,String> titularJuridico){
 
         return ResponseEntity.ok(new TitularJuridicoDto(titularJuridicoService.updateTitularJuridico(id,titularJuridico)));
