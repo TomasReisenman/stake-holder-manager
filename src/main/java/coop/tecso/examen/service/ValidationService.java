@@ -12,16 +12,8 @@ import java.util.Set;
 @Service
 public class ValidationService {
 
-    private TitularFisicoRepo titularFisicoRepo;
-    private TitularJuridicoRepo titularJuridicoRepo;
 
-    @Autowired
-    public ValidationService(TitularFisicoRepo titularFisicoRepo, TitularJuridicoRepo titularJuridicoRepo) {
-        this.titularFisicoRepo = titularFisicoRepo;
-        this.titularJuridicoRepo = titularJuridicoRepo;
-    }
-
-    public void validateConstraints(final Titular titular){
+    public static void validateConstraints(final Titular titular){
 
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();

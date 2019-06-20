@@ -13,12 +13,10 @@ import java.util.Map;
 public class TitularFisicoService {
 
     private TitularFisicoRepo titularFisicoRepo;
-    private ValidationService validationService;
 
     @Autowired
-    public TitularFisicoService(TitularFisicoRepo titularFisicoRepo, ValidationService validationService) {
+    public TitularFisicoService(TitularFisicoRepo titularFisicoRepo) {
         this.titularFisicoRepo = titularFisicoRepo;
-        this.validationService = validationService;
     }
 
 
@@ -41,7 +39,7 @@ public class TitularFisicoService {
         titularEncontrado.setApellido(titularFisico.getOrDefault("apellido",titularEncontrado.getApellido()));
         titularEncontrado.setDni(titularFisico.getOrDefault("dni",titularEncontrado.getDni()));
 
-        validationService.validateConstraints(titularEncontrado);
+        ValidationService.validateConstraints(titularEncontrado);
 
         return titularFisicoRepo.save(titularEncontrado);
     }
@@ -50,9 +48,9 @@ public class TitularFisicoService {
         titularFisicoRepo.deleteById(id);
     }
 
-    public TitularFisico saveTitularJuridico(final TitularFisico titularFisico){
+    public TitularFisico saveTitularFisico(final TitularFisico titularFisico){
 
-        validationService.validateConstraints(titularFisico);
+        ValidationService.validateConstraints(titularFisico);
 
         return titularFisicoRepo.save(titularFisico);
     }

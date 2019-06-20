@@ -4,6 +4,7 @@ import coop.tecso.examen.dto.TitularFisicoDto;
 import coop.tecso.examen.model.TitularFisico;
 import coop.tecso.examen.service.TitularFisicoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,7 +47,7 @@ public class TitularFisicoController {
 	@PostMapping()
 	public ResponseEntity saveTitularJuridico(@RequestBody final TitularFisico titularFisico){
 
-		return ResponseEntity.ok(new TitularFisicoDto(titularFisicoService.saveTitularJuridico(titularFisico)));
+		return ResponseEntity.status(HttpStatus.CREATED).body(new TitularFisicoDto(titularFisicoService.saveTitularFisico(titularFisico)));
 	}
 
 	@DeleteMapping("/{id}")

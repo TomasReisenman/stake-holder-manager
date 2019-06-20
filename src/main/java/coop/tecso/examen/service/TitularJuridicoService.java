@@ -13,12 +13,10 @@ import java.util.Map;
 public class TitularJuridicoService {
 
     private TitularJuridicoRepo titularJuridicoRepo;
-    private ValidationService validationService;
 
     @Autowired
-    public TitularJuridicoService(TitularJuridicoRepo titularJuridicoRepo, ValidationService validationService) {
+    public TitularJuridicoService(TitularJuridicoRepo titularJuridicoRepo) {
         this.titularJuridicoRepo = titularJuridicoRepo;
-        this.validationService = validationService;
     }
 
     public List<TitularJuridico> findAll(){
@@ -39,7 +37,7 @@ public class TitularJuridicoService {
         titularEncontrado.setRazonSocial(titularJuridico.getOrDefault("razonSocial",titularEncontrado.getRazonSocial()));
         titularEncontrado.setFoundationYear(titularJuridico.getOrDefault("foundationYear",titularEncontrado.getFoundationYear()));
 
-        validationService.validateConstraints(titularEncontrado);
+        ValidationService.validateConstraints(titularEncontrado);
 
         return titularJuridicoRepo.save(titularEncontrado);
     }
@@ -50,7 +48,7 @@ public class TitularJuridicoService {
 
     public TitularJuridico saveTitularJuridico(final TitularJuridico titularJuridico){
 
-        validationService.validateConstraints(titularJuridico);
+        ValidationService.validateConstraints(titularJuridico);
 
         return titularJuridicoRepo.save(titularJuridico);
     }
