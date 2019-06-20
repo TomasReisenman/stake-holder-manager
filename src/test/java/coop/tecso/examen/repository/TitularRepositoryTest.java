@@ -24,8 +24,8 @@ public class TitularRepositoryTest {
     @Before
     public void setUp() {
     	TitularFisico titular = new TitularFisico();
-    	titular.setNombre("ISO_CODE_TEST");
-    	titular.setApellido("NAME_TEST");
+    	titular.setNombre("Andres");
+    	titular.setApellido("Dario");
     	titular.setDni("35666");
     	titular.setCuit("5559595");
 
@@ -33,7 +33,7 @@ public class TitularRepositoryTest {
     }
         
     @Test
-    public void findAllMustReturnAllCountries() {
+    public void findAllMustReturnAllTitulares() {
     	List<TitularFisico> result = titularFisicoRepo.findAll();
     	assertEquals(1, result.size());
     }
