@@ -1,9 +1,6 @@
 package coop.tecso.examen.service;
 
 import coop.tecso.examen.model.Titular;
-import coop.tecso.examen.repository.TitularFisicoRepo;
-import coop.tecso.examen.repository.TitularJuridicoRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.*;

@@ -1,19 +1,5 @@
 package coop.tecso.examen.controller;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import coop.tecso.examen.model.TitularFisico;
 import coop.tecso.examen.service.TitularFisicoService;
 import org.junit.Before;
@@ -27,22 +13,49 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+import static coop.tecso.examen.TestUtil.asJsonString;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @RunWith(SpringRunner.class)
 @WebMvcTest(TitularFisicoController.class)
-public class TitularControllerTest {
+public class TitularFisicoControllerTest {
 
 	@Autowired
     private MockMvc mvc;
-	
-
 	private TitularFisicoController controller;
-	    
-    @MockBean
+	private String root;
+
+	@MockBean
     private TitularFisicoService titularFisicoService;
+
+	Long id = 1L;
+	String apellido = "Perez";
+	String nombre = "Carlos";
+	String cuit = "34667747";
+
+	private TitularFisico titularFisicoTest;
 
 	@Before
 	public void setUp() throws Exception {
 		controller = new TitularFisicoController(titularFisicoService);
+		root = controller.getClass().getAnnotation(RequestMapping.class).value()[0];
+
+		titularFisicoTest = new TitularFisico();
+		titularFisicoTest.setId(id);
+		titularFisicoTest.setCuit(cuit);
+		titularFisicoTest.setNombre(nombre);
+		titularFisicoTest.setApellido(apellido);
 	}
 
 	@Test
@@ -50,8 +63,7 @@ public class TitularControllerTest {
     	
     	when(titularFisicoService.findAll()).thenReturn(Collections.emptyList());
     	
-    	String root = controller.getClass().getAnnotation(RequestMapping.class).value()[0];
-        
+
     	mvc.perform(get(root +"/"))
     							.andDo(print())
     							.andExpect(status().isOk())
@@ -62,20 +74,11 @@ public class TitularControllerTest {
     @Test
     public void findAllWithOneResultElement() throws Exception {
     	
-    	Long id = 1L;
-    	String apellido = "Perez";
-    	String nombre = "Carlos";
-    	String cuit = "34667747";
 
-    	TitularFisico element = new TitularFisico();
-    	element.setId(id);
-    	element.setCuit(cuit);
-    	element.setNombre(nombre);
-    	element.setApellido(apellido);
 
-    	when(titularFisicoService.findAll()).thenReturn(Arrays.asList(element));
+    	when(titularFisicoService.findAll()).thenReturn(Arrays.asList(titularFisicoTest));
     	
-    	String root = controller.getClass().getAnnotation(RequestMapping.class).value()[0];
+
         
     	mvc.perform(get(root +"/"))
     							.andDo(print())
@@ -91,20 +94,9 @@ public class TitularControllerTest {
 	@Test
 	public void findById() throws Exception {
 
-		Long id = 1L;
-		String apellido = "Perez";
-		String nombre = "Carlos";
-		String cuit = "34667747";
 
-		TitularFisico element = new TitularFisico();
-		element.setId(id);
-		element.setCuit(cuit);
-		element.setNombre(nombre);
-		element.setApellido(apellido);
+		when(titularFisicoService.findById(id)).thenReturn(titularFisicoTest);
 
-		when(titularFisicoService.findById(id)).thenReturn(element);
-
-		String root = controller.getClass().getAnnotation(RequestMapping.class).value()[0];
 
 		mvc.perform(get(root +"/" + id))
 				.andDo(print())
@@ -119,22 +111,11 @@ public class TitularControllerTest {
 	@Test
 	public void saveTitularFisico() throws Exception {
 
-		Long id = 1L;
-		String apellido = "Perez";
-		String nombre = "Carlos";
-		String cuit = "34667747";
 
-		TitularFisico element = new TitularFisico();
-		element.setId(id);
-		element.setCuit(cuit);
-		element.setNombre(nombre);
-		element.setApellido(apellido);
+		when(titularFisicoService.saveTitularFisico(titularFisicoTest)).thenReturn(titularFisicoTest);
 
-		when(titularFisicoService.saveTitularFisico(element)).thenReturn(element);
 
-		String root = controller.getClass().getAnnotation(RequestMapping.class).value()[0];
-
-		mvc.perform(post(root +"/").contentType(MediaType.APPLICATION_JSON).content(asJsonString(element)))
+		mvc.perform(post(root +"/").contentType(MediaType.APPLICATION_JSON).content(asJsonString(titularFisicoTest)))
 				.andDo(print())
 				.andExpect(status().isCreated())
 				.andExpect(jsonPath("$.id", is(id.intValue())))
@@ -146,17 +127,6 @@ public class TitularControllerTest {
 
 	@Test
 	public void testUpdateByIdShouldReturnSingleTitular() throws Exception {
-
-		Long id = 1L;
-		String apellido = "Perez";
-		String nombre = "Carlos";
-		String cuit = "34667747";
-
-		TitularFisico element = new TitularFisico();
-		element.setId(id);
-		element.setCuit(cuit);
-		element.setNombre(nombre);
-		element.setApellido(apellido);
 
 		TitularFisico updatedTitular = new TitularFisico();
 		updatedTitular.setId(id);
@@ -172,7 +142,6 @@ public class TitularControllerTest {
 
 		when(titularFisicoService.updateTitularJuridico(id,updatedMap)).thenReturn(updatedTitular);
 
-		String root = controller.getClass().getAnnotation(RequestMapping.class).value()[0];
 
 		mvc.perform(put(root +"/" + id).contentType(MediaType.APPLICATION_JSON).content(asJsonString(updatedMap)))
 				.andDo(print())
@@ -187,7 +156,6 @@ public class TitularControllerTest {
 	@Test
 	public void testDelete() throws Exception{
 
-		String root = controller.getClass().getAnnotation(RequestMapping.class).value()[0];
 
 		mvc.perform(delete(root +"/" + 1))
 				.andDo(print())
@@ -197,15 +165,6 @@ public class TitularControllerTest {
 
 	}
 
-	public static String asJsonString(final Object obj) {
-		try {
 
-			String valueAsString = new ObjectMapper().writeValueAsString(obj);
-			System.out.println("valueAsString = " + valueAsString);
-			return valueAsString;
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
 	
 }
