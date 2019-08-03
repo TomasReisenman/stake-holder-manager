@@ -1,4 +1,5 @@
-.stakeholder-manager.iml
+*.iml
+*.git
 .idea
 .test
 /target
