@@ -9,28 +9,20 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>coop.tecso</groupId>
-    <artifactId>test-spring-boot-level-1</artifactId>
+    <groupId>tomas.reisenman</groupId>
+    <artifactId>stakeholder-manager</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
-    <name>test-spring-boot-level-1</name>
+    <name>stakeholder-manager</name>
 
-    <url>https://gitlab.tecso.coop/tecso/test-spring-boot-level-1</url>
-    <description>Examen Spring Boot</description>
-    <inceptionYear>2018</inceptionYear>
-
-    <scm>
-        <url>https://gitlab.tecso.coop/tecso/test-spring-boot-level-1</url>
-        <connection>scm:git:https://gitlab.tecso.coop/tecso/test-spring-boot-level-1.git</connection>
-        <developerConnection>scm:git:https://gitlab.tecso.coop/tecso/test-spring-boot-level-1.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
+    <description>Spring CRUD example</description>
+    <inceptionYear>2019</inceptionYear>
 
 
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <start-class>coop.tecso.examen.MainApplication</start-class>
+        <start-class>tomas.reisenman.practice.MainApplication</start-class>
         <joda-time-version>2.10</joda-time-version>
         <jadira-usertype-version>6.0.1.GA</jadira-usertype-version>
         <commons-lang3.version>3.4</commons-lang3.version>
@@ -97,7 +89,7 @@
                     <configuration>
                         <archive>
                             <manifestEntries>
-                                <Premain-Class>coop.tecso.examen.NopPreMain</Premain-Class>
+                                <Premain-Class>tomas.reisenman.practice.NopPreMain</Premain-Class>
                             </manifestEntries>
                         </archive>
                     </configuration>

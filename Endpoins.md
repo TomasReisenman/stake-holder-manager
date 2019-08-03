@@ -1,35 +1,35 @@
 
-	Obtener todos los titulares juridico:
-    curl -X GET "http://localhost:8080/api/titular/juridico"
+	Get all clients :
+    curl -X GET "http://localhost:8080/api/stakeholders/clients"
 
-	Realizando POST titular juridico:
-	curl -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"razonSocial":"tecnologo","foundationYear":"1990","cuit": "1111"}' -X POST http://localhost:8080/api/titular/juridico
+	Saving client:
+	curl -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"address":"av park 621","industry":"fishing","contactEmail": "sea.jersey@jmail.com"}' -X POST http://localhost:8080/api/stakeholders/clients
 
-    Realizando UPDATE titular juridico:
-	curl -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"razonSocial":"Comercial","foundationYear":"1990","cuit": "44444"}' -X PUT http://localhost:8080/api/titular/juridico/2
+    UPDATE client:
+	curl -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"address":"av wall 111","industry":"mining","contactEmail": "gold.smith@jmail.com"}' -X PUT http://localhost:8080/api/stakeholders/clients/2
 
-	Obtener titular juridico por id :
-	curl -X GET "http://localhost:8080/api/titular/juridico/2"
+	Get client by id :
+	curl -X GET "http://localhost:8080/api/stakeholders/clients/2"
 
-    Borrar titular juridico por id :
-    curl -X DELETE "http://localhost:8080/api/titular/juridico/2"
-
-
+    Delete client id :
+    curl -X DELETE "http://localhost:8080/api/stakeholders/clients/2"
 
 
 
-	Obtener todos los titulares fisicos:
-	curl -X GET "http://localhost:8080/api/titular/fisico"
 
-	Realizando POST titular fisico:
-    curl -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"dni":"45472","nombre":"Carlos","apellido":"Perez","cuit": "71717"}' -X POST http://localhost:8080/api/titular/fisico
 
-	Realizando UPDATE titular fisico:
-    curl -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"dni":"123897","nombre":"Andres","apellido":"Garcia","cuit": "434343"}' -X PUT http://localhost:8080/api/titular/fisico/1
+	Get all employees:
+	curl -X GET "http://localhost:8080/api/stakeholders/employees"
 
-    Obtener titular fisico por id :
-    curl -X GET "http://localhost:8080/api/titular/fisico/1"
+	Saving employee:
+    curl -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"position":"engineer","name":"Antony","surname":"Smith","contactEmail": "smth.ant@jmail.com"}' -X POST http://localhost:8080/api/stakeholders/employees
 
-    Borrar titular fisico por id :
-    curl -X DELETE "http://localhost:8080/api/titular/fisico/1"
+	UPDATE employee:
+    curl -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"position":"engineer","name":"Andres","surname":"Garcia","contactEmail": "smth.bks@jmail.com"}' -X PUT http://localhost:8080/api/stakeholders/employees/1
+
+    Get employee by id :
+    curl -X GET "http://localhost:8080/api/stakeholders/employees/1"
+
+    Delete employee by id :
+    curl -X DELETE "http://localhost:8080/api/stakeholders/employees/1"
 
